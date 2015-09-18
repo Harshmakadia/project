@@ -1,0 +1,43 @@
+
+  .dataTables_empty {
+   display:none;
+      }
+
+  .ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+   * html .ui-autocomplete {
+    height: 100px;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.glyphicon-remove {
+  color:red;
+}
+table.dataTable {
+  border-collapse: collapse;
+}
+body
+{
+  background-color:aliceblue;
+}
+#datepicker
+{
+      margin-right: 12px;
+    width: 80px;
+}
+#label
+{
+      margin-left: 13px;
+}     
+#add
+{
+  width: 430px;
+    margin-top: 18px;
+}

@@ -1,0 +1,35 @@
+<configuration xmlns="http://logging.apache.org/log4php/">     
+	<appender name="myFileAppender" class="LoggerAppenderDailyFile">
+        <layout class="LoggerLayoutPattern">
+            <param name="conversionPattern" value="%date %x [%level] %message%newline%newline" />
+        </layout>
+		<filter class="LoggerFilterLevelRange">
+            <param name="levelMin" value="debug" />
+            <param name="levelMax" value="error" />
+        </filter>
+        <param name="file" value="Log/%s.txt" />
+        <param name="datePattern" value="Y-m-d" />
+    </appender>
+	
+	<appender name="default" class="LoggerAppenderMail" threshold="ERROR">
+        <layout class="LoggerLayoutSimple" />
+        <param name="to" value="ankur.vyas@marutitech.com" />
+        <param name="from" value="ankur.vyas@marutitech.com" />
+    </appender>
+	
+	<root>
+        <level value="TRACE" />
+        <appender_ref ref="myFileAppender" />
+    </root>
+</configuration>
+<!--
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="default" class="LoggerAppenderMailEvent">
+        <layout class="LoggerLayoutSimple" />
+        <param name="to" value="ankur.vyas@marutitech.com" />
+        <param name="from" value="avyas534.av@gmail.com" />
+    </appender>
+    <root>
+        <appender_ref ref="default" />
+    </root>
+</configuration>-->

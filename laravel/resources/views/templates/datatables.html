@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   	<meta charset="utf-8">
+   	<meta http-equiv="X-UA-Compatible" content ="IE-edge">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<!--Datatables plugins-->
+	<link rel="stylesheet" href="//cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+	<script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+	<body>
+		<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Column 4</th>
+                <th>Column 5</th>
+            </tr>
+        </thead>
+ 
+        <tfoot>
+            <tr>
+                <th>Column 1</th>
+                <th>Column 2</th>
+                <th>Column 3</th>
+                <th>Column 4</th>
+                <th>Column 5</th>
+            </tr>
+        </tfoot>
+    </table>
+    </body>
+    </html>
+    <script type="text/javascript">
+     $(document).ready(function() {
+    var t = $('#example').DataTable();
+    var counter = 1;
+ 
+    $('#addRow').on( 'click', function () {
+        t.row.add( [
+            counter +'.1',
+            counter +'.2',
+            counter +'.3',
+            counter +'.4',
+            counter +'.5'
+        ] ).draw();
+ 
+        counter++;
+    } );
+ 
+    // Automatically add a first row of data
+    $('#addRow').click();
+} );
+     </script>
