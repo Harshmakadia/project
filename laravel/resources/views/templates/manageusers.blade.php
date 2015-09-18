@@ -2,15 +2,9 @@
 @section('content')
 
 <div class="container">
-
-		
-				
-				
 				<label for="create">Manage Users</label>	
 				<button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal">Create User</button>
-			
-				
-			<div class="modal fade" id="myModal" role="dialog">
+				<div class="modal fade" id="myModal" role="dialog">
 							<div class="modal-dialog modal-md">
 								<div class="modal-content">
 									<div class="modal-header">
@@ -65,6 +59,7 @@
 		
 		</tbody>
 	</table>
+	   
 	</div>
 </div>
 		

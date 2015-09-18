@@ -15,8 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/*Route::get('ledger',function() {
-return view('templates.ledger');
+/*Route::get('viewpayment',function() {
+return view('templates.viewpayment');
 });*/
 /*Route::get('payment',function() {
 return view('templates.payment');
@@ -28,6 +28,7 @@ return view('templates.loginhistory');
 
 
 $router->resource('ledger','AddLedgerController');
+$router->resource('viewpayment','ViewPaymentController');
 $router->resource('payment','PaymentController');
 //Route::get('payment','PaymentController@getledger');
 //Route::get('showledger','PaymentController@getledger');

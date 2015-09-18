@@ -2,6 +2,8 @@
 @section('content')
  <div class="container">
                  <label for="Ledgers" class="pull-left">Ledger Details</label>
+				 
+				  
 				<button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal">Create Ledger</button>
 				<br>
 				<br>
@@ -126,12 +128,13 @@ $(document).ready(function(){
 
   }); 
 });
-</script>
+</script>-->
 <style>
-body{
-background-color: aliceblue;}
+body {
+    background-color: #E0FFFF;
+}
 hr {
 border-top: 3px solid #2C3E50;}
-</style>-->
+</style>
 
 @stop

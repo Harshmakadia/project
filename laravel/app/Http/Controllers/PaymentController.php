@@ -39,7 +39,6 @@ class PaymentController extends Controller
 	{
 
 		$data = $_POST['json'];
-		
 		$totalDebit = $_POST['totalDebit'];
 		$type=1;
 		$date=$_POST['date'];
@@ -78,6 +77,7 @@ class PaymentController extends Controller
 
 				 		)
 				 	);
+				DB::table('ledger')->where('name',$name)->update(['OpeningBalance' => $openingbalance]);
 		}
       
     }

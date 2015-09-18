@@ -81,5 +81,5 @@ class ManageUsersController extends Controller
 	     	\Session::flash('flash_message','New user account created.');
 			return redirect('manageusers');
 		}
-	 }
-  }
+	}
+ }

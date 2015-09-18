@@ -33,7 +33,6 @@
 </script>-->
 <script type="text/javascript" src="https://cdn.datatables.net/r/dt/dt-1.10.8/datatables.min.js"></script>
 
-   <script src="../resources/views/static/js/jquery.blockUI.js"></script>
    <!--<script src="../resources/views/static/js/datapicker.js"></script>-->
    <script>
        $(document).ready(
@@ -103,6 +102,8 @@ $('input.number').keyup(function(event) {
 						<li><a href="#"><span class="glyphicon glyphicon-book"></span> Sales</a></li>
 						<li class="divider">
 						<li><a href="#"><span class="glyphicon glyphicon-stats"></span> Profit/Loss <span class="glyphicon glyphicon-charts"></span> </a></li>
+						<li class="divider">
+						<li><a href="{{ URL::to('viewpayment') }}"><span class=""></span>View Payment Entries </a></li>
 					</ul>
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin <span class="caret"></span></a>
 					<ul class="dropdown-menu" style="background-color: #2C3E50;">
