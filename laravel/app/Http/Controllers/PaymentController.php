@@ -32,7 +32,16 @@ class PaymentController extends Controller
 		{
 			return Redirect::to('login');
 		}
-	    return view('templates.payment');
+		$users = DB::table('ledger')->select('name','openingbalance')->get();
+		/*$paymentUsers = array();
+		for($i = 0; $i < sizeof($users); $i++)
+		{
+			$paymentUsers[$users[$i]->name] = $users[$i]->openingbalance;
+		}*/
+		//print_r($users);
+		//exit();
+	    return view('templates.payment',['users' => $users]);
+	  
 	}
    
 	public function store()
@@ -43,6 +52,7 @@ class PaymentController extends Controller
 		$type=1;
 		$date=$_POST['date'];
 		$t_id=Last::getlastno();
+		
 		//$name = $_POST['name'];
         
 		DB::table('transaction')->insert(
@@ -54,9 +64,7 @@ class PaymentController extends Controller
                            't_id'=>$t_id
                            )
                    );
-
         $id = DB::table('transaction')->orderBy('created_at', 'desc')->select('id')->pluck('id');
-    
         
         for($i = 0; $i <  sizeof($data); $i++)
 		{
@@ -95,7 +103,6 @@ class PaymentController extends Controller
 		{
 			$results[] = $query->Name.'|'.$query->OpeningBalance;
 		}
-		
 		echo json_encode($results);
 	}
     }	

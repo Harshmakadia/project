@@ -21,19 +21,12 @@ return view('templates.viewpayment');
 /*Route::get('payment',function() {
 return view('templates.payment');
 });*/
-/*Route::get('loginhistory',function() {
-return view('templates.loginhistory');
-});*/
-//Route::post('ledger','AddLedgerController@index');
-
-
 $router->resource('ledger','AddLedgerController');
 $router->resource('viewpayment','ViewPaymentController');
 $router->resource('payment','PaymentController');
 //Route::get('payment','PaymentController@getledger');
 //Route::get('showledger','PaymentController@getledger');
 //Route::post('payment','PaymentController@store');
-//Route::get('payment','PaymentController@index');
 Route::post('adduser', 'AjaxAddUserController@index');
 $router->resource('manageusers','ManageUsersController');
 $router->resource('login','LoginController');

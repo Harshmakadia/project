@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 session_start();
 require_once ("../log4php/Logger.php");
 require_once ("../app/Http/Controllers/Password.php");
+require_once ("../app/Http/Controllers/scrollmaster.php");
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -32,31 +33,33 @@ class ViewPaymentController extends Controller
 		{
 			return Redirect::to('login');
 		}
-			$users = DB::table('transaction_details')->join('ledger','transaction_details.ledger','=','ledger.Name')->groupBy('ledger.Name')->select('ledger.CrDr as CrDr',
+			$users = DB::table('transaction_details')->leftjoin('ledger','transaction_details.ledger','=','ledger.Name')->groupBy('ledger.Name')->select('ledger.CrDr as CrDr',
       				'transaction_details.ledger as Name',
       				'transaction_details.amount as Debit',
       				DB::raw('ABS(ledger.OpeningBalance) as openingBalance'))->get();
-					return view('templates.viewpayment',['users' => $users]);
+			return view('templates.viewpayment',['users' => $users]);
 	}
+
+
 	public function store()
-	{
+	{	       
 		$data = $_POST['json'];
 		$totalDebit = $_POST['totalDebit'];
 		$type=1;
 		$date=$_POST['date'];
-		//DB::table('transaction')->insert( ['updated_by' =>$_SESSION["name"]]);
-    
-         for($i = 0; $i <  sizeof($data); $i++)
-		 {
+		//$timestamp = date('Y-m-d H:i:s', strtotime($date)); 
+		//$name = $_POST['name'];
+		DB::table('transaction')->where('id',212)->update(['updated_by' =>$_SESSION["name"]]);
+
+    	for($i = 0; $i <  sizeof($data); $i++)
+		{
 				$crdr= $data[$i]['crdr'];
 			    $name= $data[$i]['name'];
 			    $debit= $data[$i]['debit'];
 				$openingbalance = $data[$i]['openingbalance'];
+		}	
 
-             
-			$a = DB::table('ledger')->where('name',$name)->update(['OpeningBalance' => $openingbalance]);
 
-		}
-		
-	}
+      
+    } 
 }

@@ -2,6 +2,7 @@
 @section('content')
 
 <div class="container">
+
 				<label for="create">Manage Users</label>	
 				<button type="button" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#myModal">Create User</button>
 				<div class="modal fade" id="myModal" role="dialog">
@@ -48,10 +49,11 @@
 		<tbody>
 				@foreach ($users as $user)
 					<tr>
-						<td>{{ $user->FirstName }}</td>
+						<td>hello {{ $user->FirstName }}</td>
 						<td>{{ $user->LastName }}</td>
 						<td>{{ $user->Email }}</td>
 						<td>{{ $user->LastLogin }}</td>
+						
 					</tr>			
 				@endforeach
 			
@@ -59,7 +61,7 @@
 		
 		</tbody>
 	</table>
-	   
+	
 	</div>
 </div>
 		

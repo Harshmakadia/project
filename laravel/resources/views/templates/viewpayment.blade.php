@@ -14,6 +14,7 @@
 						<th>OpeningBalance</th>
 						<th><span class=" glyphicon glyphicon-remove" style="width: 0.1818px;"></span></th>
 						<th><span class="glyphicon glyphicon-pencil" style="width: 0.1818px;"></span></th>
+            <th style="display:none;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,16 +25,31 @@
 							<td>{{$user->Name}}</td>
 							<td>{{$user->Debit}}</td>
 							<td>{{$user->openingBalance}}</td>
-							<td></td>
-							<td></td>
-							<!--<td><input type="button" value="Delete" id="delete" class="btn btn-danger center-block"/></td>
-							<td><input type="button" value="Update" id="update" class="btn btn-warning center-block"/></td>-->
-							
+							<td><input type="button" value="Delete" id="delete" class="btn btn-danger glyphicon center-block"/></td>
+							<td><input type="button" value="Update" id="update" class="btn btn-warning center-block"/></td>
+              <td style="display:none";></td>  
 						</tr>			
 					@endforeach
 				</tbody>
 			</table>
 		<input type="button" value="check" id="update" class="btn center-block"/>
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="label">Delete Entry!</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-danger" id="deleteOption" data-dismiss="modal">Delete</a>
+                <a class="btn btn-default" id="cancel" data-dismiss="modal">Cancel</a>  
+            </div>
+        </div>
+    </div>
+</div>
+
 	   	</div>
 	</div>
 <style>
@@ -83,16 +99,13 @@ body
 <script>
 $(document).ready(function(){
  
-$('.deleterow').on('click',function(){
-  //var rowValue = $(this).closest('tr').text();
-  //alert(rowValue);
-});
 _t = $('#payment').DataTable({
 	"aoColumns": [
     {"sClass":"crdr" },
     {"sClass":"name" },
     {"sClass":"debit" },
     {"sClass":"openingbalance" },
+    null,
     null,
     null
     ]
@@ -101,6 +114,18 @@ attachEvents();
  $('html').on('click',function(e){
     destroyEditor($("#editor").val());
    // e.stopPropagation();
+  });
+ $("#deleteOption").on('click',function(){
+      var tr = $(selectedRow).closest('tr');
+      var name =$("#editor").val();
+      console.log(name);
+      _t.row(tr).remove().draw();
+
+      $("#myModal").hide();
+
+  });
+   $("#cancel").on('click',function(){
+      $("#myModal").hide();
   });
 });
 var attachEvents = function() {
@@ -255,11 +280,9 @@ var bindAutoComplete = function(identifier) {
   });
 };
 $('#update').click(function(){  
-	console.log("worked");
   var x = _t.data();
-  console.log(x);
+
   var jsonArr = [];
-  console.log(jsonArr);
   var totalDebit=0;
   var type=1;
   var date=$( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" ).val();
@@ -278,8 +301,9 @@ $('#update').click(function(){
       totalDebit: totalDebit += parseInt(x[i][2])
     });
   }
+  alert("Ss");
   $.ajax({
-    url: 'payment',
+    url: 'viewpayment',
     type: "post",
     data: {'json':jsonArr,'_token': $('input[name=_token]').val(),'totalDebit':totalDebit,'type':type,'date':date}
   });

@@ -1,5 +1,6 @@
 @extends('masterhome')
 @section('content')
+
 <h2><label for="payment" class="label label-primary pull-left" id="label">Payment</label></h2>
 <input type="text" class="datepicker pull-right" id="datepicker">
 {!!Form::open(['route' =>'payment.store','id' =>'form-search','name'=>'myform','method' =>'POST','class' => 'form-signin' , 'files' => true , 'autocomplete' => 'off'])!!}
@@ -134,8 +135,18 @@ body
  display:none;
 }
 </style>
+
 <script>
 $(document).ready(function() {
+var data = 
+{
+    @for ($i = 0; $i < count($users); $i++)
+      
+        '{!! $users[$i]->name !!}': "{!! $users[$i]->openingbalance !!}",
+      
+    @endfor
+};
+console.log(data['']);
   /* var crdr = [
     "cr",
     "dr"
@@ -269,6 +280,7 @@ var attachEvents = function() {
     }
       if($(this).hasClass('name')){
         bindAutoComplete('editor');  
+
       }
       e.stopPropagation();
   });
@@ -313,23 +325,16 @@ var createEditor = function(element) {
 
 //editor's key events
 var attachKeyEvents = function() {
-  $("#editor").keydown(function(e) {
-    // bindAutoComplete('name');
+ $("#editor").keydown(function(e) {
     if(e.keyCode == 13 && !$("#editor").parent().next().children().hasClass("openingbalance")) {
       if($("#editor").hasClass("name")) {
-        //var data = $
-        $("#editor").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:$("#editor").val()}});
-      // $("#editor").data('ui-autocomplete')._trigger('select', 'autocompleteselect', {item:{value:$("#editor").val()}});
-
-        //$('#editor').data('uiAutocomplete')._trigger('select');
+       //$("#editor").data('ui-autocomplete')._trigger('select','autocompleteselect', {alert("Sdsd");});
+  
       }
       var nextElement = $("#editor").parent().next();
       destroyEditor($("#editor").val());
       createEditor(nextElement);
-      //bindAutoComplete("#debit");
-      //console.log(nextElement.next().text());
-
-    } 
+    }
     else if (e.keyCode == 27) {
       destroyEditor(_tdValueBeforeUpdate);
     }
@@ -350,6 +355,7 @@ var checkIfSame = function(clickedElement) {
     return false;
   }
 };
+
 var bindAutoComplete = function(identifier) {
   var selector = "#" + identifier;
   $(selector).autocomplete({
@@ -362,8 +368,8 @@ var bindAutoComplete = function(identifier) {
           type: 'ledger',
           _token: $('input[name=_token]').val()
         },
-        success: function( data ) {
-          _da = data;
+        success: function( data ){
+          //_da = data;
           if(data.length == 0)
           {
             $(selector).addClass('verify');
@@ -384,7 +390,9 @@ var bindAutoComplete = function(identifier) {
       });
     },    
     minLength: 0,
-    select: function( event, ui) {
+    select: function( event, ui)
+     {
+
       var names = ui.item.data.split("|");
       if($("#editor").length == 0){
 
@@ -401,8 +409,8 @@ var bindAutoComplete = function(identifier) {
  
 $('#add').click(function(){  
   var x = _t.data();
+  console.log(x);
   var jsonArr = [];
-  console.log(jsonArr);
   var totalDebit=0;
   var type=1;
   var date=$( "#datepicker" ).datepicker( "option", "dateFormat", "yy-mm-dd" ).val();
@@ -426,7 +434,8 @@ $('#add').click(function(){
     type: "post",
     data: {'json':jsonArr,'_token': $('input[name=_token]').val(),'totalDebit':totalDebit,'type':type,'date':date}
   });
-  location.reload();
+
+  //location.reload();
   $('#name').focus();
 });
 </script> 

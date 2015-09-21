@@ -33,6 +33,7 @@ class ManageUsersController extends Controller
 			return Redirect::to('login');
 		}
 		$users = DB::table('userdetail')->leftJoin('logindetails', 'userdetail.Email', '=', 'logindetails.Email')->groupBy('userdetail.Email')->select(DB::raw('FirstName, LastName, userdetail.Email, max(logindetails.DateTime) as LastLogin' ))->where('DateTime', '!=', 'null' )->get();
+		
 		return view('templates.manageusers',['users' => $users]);
 	}
 	
