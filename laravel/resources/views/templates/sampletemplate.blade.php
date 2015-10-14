@@ -3,7 +3,8 @@
 
 <h2><label for="payment" class="label label-primary pull-left" id="label">Payment</label></h2>
 <input type="text" class="datepicker pull-right" id="datepicker">
-{!!Form::open(['route' =>'payment.store','id' =>'form-search','name'=>'myform','method' =>'POST','class' => 'form-signin' , 'files' => true , 'autocomplete' => 'off'])!!}
+<!--{!!Form::open(['route' =>'payment.store','id' =>'form-search','name'=>'myform','method' =>'POST','class' => 'form-signin' , 'files' => true , 'autocomplete' => 'off'])!!}-->
+<form>
 @if(Session::has('flash_error'))
 <div class="alert alert-danger">
   {{ Session::get('flash_error')}}
@@ -33,9 +34,9 @@
       <tfoot>
         <tr>
           <input id="_token" type="hidden" name="_token" value="{{ csrf_token() }}">
-          <td><input type="text" class="crdr form-control" id="crdr" name="crdr" value="Dr"></td>
+          <td><input type="text" class="crdr form-control" id="crdr" name="crdr" value="Dr" disabled></td>
 
-          <td><div class="form-group"><input type="text" class="name form-control" id="name" name="name"></div></td>
+          <td><div class="form-group"><input type="text" class="name form-control" id="name" name="name" ></div></td>
 
           <td> <div class="form-group"><input type="number" class="debit form-control" id="debit" name="debit"><div></td>
           <td><div class="form-group"><input type="text" class="openingbalance form-control" id="openingbalance" name="openingbalance"></div></td>
@@ -76,7 +77,8 @@
 
 
 
-{!!Form::close()!!}
+<!--{!!Form::close()!!}-->
+</form>
 
 <style>
 body {
@@ -138,12 +140,6 @@ body
 
 <script>
 $(document).ready(function() {
-/*var data = 
-{
-    @for ($i = 0; $i < count($users); $i++)
-      '{!! $users[$i]->name !!}': "{!! $users[$i]->openingbalance !!}",
-    @endfor
-};*/
   /* var crdr = [
     "cr",
     "dr"
@@ -154,7 +150,6 @@ $(document).ready(function() {
       //autoFocus: true ,
     }); */
 bindAutoComplete('name');
-checkTabKeyPress();
 
 _t = $('#payment').DataTable( {
   "paging": false,
@@ -166,52 +161,18 @@ _t = $('#payment').DataTable( {
     {"sClass": "debit" },
     {"sClass": "openingbalance" },
     null
-    ],
-    "columnDefs": [{
-    "targets": 0,
-    "render": function ( data, type, full, meta ) {
-      return type === 'display' ?
-        '<span class="keyCol" tabindex="1">'+data+'</span>' : data;
-      }
-    },
-    {
-    "targets": 1,
-    "render": function ( data, type, full, meta ) {
-      return type === 'display' ?
-        '<span class="keyCol" tabindex="1">'+data+'</span>' : data;
-      }
-    },
-    {
-    "targets": 2,
-    "render": function ( data, type, full, meta ) {
-      return type === 'display' ?
-        '<span class="keyCol" tabindex="1">'+data+'</span>' : data;
-      }
-    },
-    {
-    "targets": 3,
-    "render": function ( data, type, full, meta ) {
-      return type === 'display' ?
-        '<span class="keyCol" tabindex="1">'+data+'</span><input type="hidden" class="hidden" value='+data+'>' : data;
-      }
-    
-    }]
-
+    ]
 });
 
-
 attachEvents();
-
 $('#name').focus();
 $('#crdr').keydown(function(e){
-  //checkTabKeyPress();
   if(e.which == 13)
   {
     $("#name").focus();
   }
 });
 $('#name').keydown(function(e){
-  //checkTabKeyPress();
   if(e.keyCode == 8 && $('#name').val() == '') {
     $('#crdr').focus();
   } 
@@ -229,14 +190,12 @@ $('#name').keydown(function(e){
   }
 });
 $('#debit').keydown(function(e){
-  //checkTabKeyPress();
   if(e.keyCode == 8 && $('#debit').val() == '') {
     $('#name').focus();
   } 
 });
 
 $('#debit').keypress(function(e){
-  //checkTabKeyPress();
   if($('#debit').val() == '')
     $('#debit').focus();
   else if(e.which == 13){
@@ -248,22 +207,20 @@ $('#debit').keypress(function(e){
            openingbalance= parseInt(openingbalance) + parseInt(debit);
 
            _t.row.add( 
-         /*
-             [
-              '<span class="keyCol" tabindex="1">'+crdr+'</span>',
-              '<span class="keyCol" tabindex="1">'+name+'</span>',
-              '<span class="keyCol" tabindex="1">'+debit+'</span>',
-              '<span class="keyCol" tabindex="1">'+openingbalance+'</span>',
-              '<span class="deleterow close glyphicon glyphicon-remove keyCol" tabindex="1"></span>'
+          /*  [
+            '<span class="crdr">'+crdr+'</span>',
+            '<span class="name">'+name+'</span>',
+            '<span class="debit">'+debit+'</span>',
+            '<span class="openingbalance">'+openingbalance+'</span>',
+            '<span class="deleterow close glyphicon glyphicon-remove"></span>'
             ] ).draw();*/
-
-           [
-            crdr,
-            name,
-            debit,
-            openingbalance,
-            '<span class="deleterow close glyphicon glyphicon-remove keyCol" tabindex="1"></span>'
-          ] ).draw();
+             [
+              crdr,
+              name,
+              debit,
+              openingbalance,
+              '<span class="deleterow close glyphicon glyphicon-remove"></span>'
+            ] ).draw();
             $("#crdr").val("Dr");
             $("#name").val('');
             $("#debit").val('');
@@ -293,7 +250,6 @@ $('#debit').keypress(function(e){
 
 var attachEvents = function() {
     $("#payment tbody tr td").on('click', function(e){
-      //alert( _t.cell( this ).data() );
       if($("#editor").length == 0) {
         if(!$(this).children().hasClass('glyphicon')){
           if($(this).hasClass('openingbalance') || $(this).hasClass('crdr')){
@@ -329,13 +285,13 @@ var replaceByEditor = function(clickedElement) {
   var className;
   if($(clickedElement).hasClass('name')){
     className = "name";
-    clickedElement.html('<input type="text" class="'+className+' keyCol" tabindex="1" id="editor" value="'+ clickedElementValue +'" />');
+    clickedElement.html('<input type="text" class="'+className+'" id="editor" value="'+ clickedElementValue +'" />');
     $("#editor").focus();
     attachKeyEvents();
   }
   else if($(clickedElement).hasClass('debit')){
     className = "debit";
-    clickedElement.html('<input type="text" class="'+className+' keyCol" tabindex="1" id="editor" value="'+ clickedElementValue +'" />');
+    clickedElement.html('<input type="text" class="'+className+'" id="editor" value="'+ clickedElementValue +'" />');
     $("#editor").focus();
     attachKeyEvents();
     }
@@ -351,7 +307,7 @@ var destroyEditor = function(value) {
   }
   else
      className ="debit";
-  $("#editor").parent().html('<span class="'+className+' keyCol" tabindex="1">'+value+'</span>');
+  $("#editor").parent().html('<span class="'+className+'">'+value+'</span>');
 };
 
 //creates Editor and stores value inside td before click
@@ -365,24 +321,18 @@ var attachKeyEvents = function() {
  $("#editor").keydown(function(e) {
     if(e.keyCode == 13 && !$("#editor").parent().next().children().hasClass("openingbalance")) {
       if($("#editor").hasClass("name")) {
-          $( "#editor" ).autocomplete("search",$("#editor").val());
+       //$("#editor").data('ui-autocomplete')._trigger('select','autocompleteselect', {alert("Sdsd");});
+  
       }
-      setTimeout(function(){
-            var nextElement = $("#editor").parent().next();
-            destroyEditor($("#editor").val());
-            createEditor(nextElement);
-      },50);
-     
+      var nextElement = $("#editor").parent().next();
+      destroyEditor($("#editor").val());
+      createEditor(nextElement);
     }
     else if (e.keyCode == 27) {
       destroyEditor(_tdValueBeforeUpdate);
     }
     else if(e.keyCode == 8 && $("#editor").val() == ''){
-      $("#editor").parent().prev().focus();
-    }
-    if(e.keyCode == 13 && $("#editor").parent().hasClass("debit")){
-     var newbalance =  +$("#editor").closest('tr').find('.hidden').val() + +$("#editor").closest('tr').find('.debit').last().val();
-     $("#editor").parent().next().text(newbalance);
+      //code to move focus to previous td
     }
   });
 };
@@ -398,31 +348,6 @@ var checkIfSame = function(clickedElement) {
     return false;
   }
 };
-
-//checks if tab is pressed
-var checkTabKeyPress = function(){
-  $("body").on("keydown",".keyCol",function(e){
- if(e.keyCode==9){
-    e.stopPropagation();
-    e.preventDefault();
-    var $items = $('.keyCol').not(".disabled").not(":hidden");
-    var index = $items.index(this);
-    console.log(index);
-    var $element;
-    if($items.length > index+1){
-    $element = $($items[index+1]).focus();
-    }
-    else{
-    $element = $($items[0]).focus();
-    }
-  }
-  else if(e.keyCode == 13){
-    $(this).click();
-  } 
-  });
-};
-  
-
 
 var bindAutoComplete = function(identifier) {
   var selector = "#" + identifier;
@@ -460,17 +385,16 @@ var bindAutoComplete = function(identifier) {
     minLength: 0,
     select: function( event, ui)
      {
-      console.log("test");
+
       var names = ui.item.data.split("|");
-       if($("#editor").length == 0){
+      if($("#editor").length == 0){
 
         $('#name').val(names[0]);
         $('#openingbalance').val(Math.abs(names[1]));
       }
       else
       {
-        //$("#editor").parent().next().next().text(Math.abs(names[1]));
-          $("#editor").closest('tr').find('.openingbalance').first().text(Math.abs(names[1]));
+        $("#editor").parent().next().next().text(Math.abs(names[1]));
       }
     }
   });
@@ -507,4 +431,4 @@ $('#add').click(function(){
   $('#name').focus();
 });
 </script> 
-@stop
+</html>

@@ -24,20 +24,18 @@ class Last
 		$result1 = DB::table('scrollmaster')->Insert([['month' => $month,'year' => $year, 'lastNo' => 1]]);
          return $t_id =1;
 		 }
-	else
-		 {
-			 
-			    {
+		else
+		 	{
+			 	{
 					//$row['lastNo']++;
 		 	  		$result++;
 					
 					$result2 = DB::table('scrollmaster')->where('month',$month)->where('year',$year)->update(['lastNo' => $result]);
 					$t_id = $result;
 					return $t_id;
-			   }
-		
-		 
-	}
- }
+			   	}
+		    }
+ 	}
 }
+
 ?>

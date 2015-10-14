@@ -18,12 +18,13 @@ Route::get('/', function () {
 /*Route::get('viewpayment',function() {
 return view('templates.viewpayment');
 });*/
-/*Route::get('payment',function() {
-return view('templates.payment');
+/*Route::get('sampletemplate',function() {
+return view('templates.sampletemplate');
 });*/
 $router->resource('ledger','AddLedgerController');
 $router->resource('viewpayment','ViewPaymentController');
 $router->resource('payment','PaymentController');
+
 //Route::get('payment','PaymentController@getledger');
 //Route::get('showledger','PaymentController@getledger');
 //Route::post('payment','PaymentController@store');
