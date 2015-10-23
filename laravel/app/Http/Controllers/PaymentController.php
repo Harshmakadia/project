@@ -33,13 +33,13 @@ class PaymentController extends Controller
 			return Redirect::to('login');
 		}
 		$users = DB::table('ledger')->select('name','openingbalance')->get();
-		/*$paymentUsers = array();
+		//add here....
+		//paymentUsers = array();
 		for($i = 0; $i < sizeof($users); $i++)
 		{
 			$paymentUsers[$users[$i]->name] = $users[$i]->openingbalance;
-		}*/
-		//print_r($users);
-		//exit();
+		}
+		$jsonData = json_encode($users);	
 	    return view('templates.payment',['users' => $users]);
 	  
 	}
@@ -47,15 +47,15 @@ class PaymentController extends Controller
 	public function store()
 	{
 
-		$data = $_POST['json'];
+		$data = $_POST['json']; 
+
 		$totalDebit = $_POST['totalDebit'];
 		$type=1;
 		$date=$_POST['date'];
 		$t_id=Last::getlastno();
 		
 		//$name = $_POST['name'];
-        
-		DB::table('transaction')->insert(
+        DB::table('transaction')->insert(
                    array(  
                            'created_by' =>$_SESSION["name"],
                            'type_id' =>$type,
@@ -71,13 +71,13 @@ class PaymentController extends Controller
 			//foreach ($data[$i]  as $key => $value)
 			//{
 				//print_r($key);
-				$crdr= $data[$i]['crdr'];
-			    $name= $data[$i]['name'];
-			    $debit= $data[$i]['debit'];
-				$openingbalance = $data[$i]['openingbalance'];
+				//$token=$data[$i]['_token'];
+				$crdr= $data[$i]['crdr1'];
+			    $name= $data[$i]['name2'];
+			    $debit= $data[$i]['debit3'];
+				$openingbalance = $data[$i]['openingbalance4'];
 
-              
-				DB::table('transaction_details')->insert(
+              	DB::table('transaction_details')->insert(
 				 	array(
 				 	    'transaction_id' =>$id,
 				 		'amount' =>$debit,
